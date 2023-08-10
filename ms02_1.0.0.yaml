@@ -1,0 +1,80 @@
+swagger: '2.0'
+info:
+  title: ms02
+  version: 1.0.0
+  description: ms02
+  x-ibm-name: ms02
+paths:
+  /customers/{id}:
+    get:
+      operationId: getId
+      responses:
+        '200':
+          description: The operation was successful.
+          schema:
+            $ref: '#/definitions/ms02body'
+      produces:
+        - application/json
+      description: Retrieve id
+      parameters:
+        - required: true
+          name: id
+          in: path
+          type: string
+basePath: /ms02/v1
+definitions:
+  ms02body:
+    type: object
+    properties:
+      customerId:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      dob:
+        type: string
+x-ibm-configuration:
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  gateway: datapower-api-gateway
+  cors:
+    enabled: true
+  assembly:
+    execute:
+      - map:
+          version: 2.0.0
+          title: map
+          inputs:
+            id:
+              schema:
+                type: string
+              variable: request.parameters.id
+          outputs:
+            response:
+              schema:
+                $ref: '#/definitions/ms02body'
+              variable: message.body
+          actions:
+            - set: response.customerId
+              from: id
+            - set: response.firstName
+              value: '''firstName'''
+            - set: response.lastName
+              value: '''lastName'''
+            - set: response.dob
+              value: '''YYYY-MM-DDTHH:mm:ss.sssZ'''
+    finally: []
+  properties:
+    target-url:
+      value: http://example.com/operation-name
+      description: The URL of the target service
+      encoded: false
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+schemes:
+  - https
