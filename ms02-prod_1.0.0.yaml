@@ -2,6 +2,7 @@ info:
   version: 1.0.0
   title: ms02 prod
   name: ms02-prod
+  description: An example product ms02
 gateways:
   - datapower-api-gateway
 plans:
