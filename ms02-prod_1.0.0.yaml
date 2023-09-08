@@ -2,7 +2,7 @@ info:
   version: 1.0.0
   title: ms02 prod
   name: ms02-prod
-  description: An example product ms02
+  description: An example product ms02 for Sept 2023 Release
 gateways:
   - datapower-api-gateway
 plans:
